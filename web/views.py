@@ -19,7 +19,7 @@ def submit_income(request):
         date=datetime.datetime.now() 
     Income.objects.create(User=this_user,amount=request.POST['amount'],
         text=request.POST['text'],data=date)
-        
+
         
     print("I 'm in submit expense'")
     print (request.POSt)
@@ -29,9 +29,6 @@ def submit_income(request):
         'status':'ok',
         
     },encoder=JSONEncoder)
-
-
-
 
 
 @csrf_exempt
