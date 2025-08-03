@@ -6,6 +6,10 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from web.models import User,Token,Expense,Income
+from .forms import RegistrationForm
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from django.contrib.auth import login
 # Create your views here.
 
 @csrf_exempt
@@ -50,3 +54,17 @@ def submit_expense(request):
         'status':'ok',
         
     },encoder=JSONEncoder)
+
+def register(request):
+    if request.method == 'POST':
+        form = RegistrationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            messages.success(request, 'ثبت‌نام با موفقیت انجام شد.')
+            return redirect('dashboard')  # یا هر نام URL دلخواه
+        else:
+            messages.error(request, 'لطفاً خطاهای فرم را اصلاح کنید.')
+    else:
+        form = RegistrationForm()
+    return render(request, 'web/register.html', {'form': form})

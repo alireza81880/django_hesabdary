@@ -1,0 +1,35 @@
+<!-- templates/base.html -->
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}عنوان پیش‌فرض{% endblock %}</title>
+  <!-- لینک به فایل‌های CSS یا favicon اگر داری -->
+</head>
+<body>
+  <!-- بلوک نمایش پیام‌های فریم‌ورک messages -->
+  {% if messages %}
+    <ul class="messages">
+      {% for message in messages %}
+        <li class="{{ message.tags }}">{{ message }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+  <!-- نوار ناوبری (اختیاری) -->
+  <nav>
+    <a href="{% url 'register' %}">ثبت‌نام</a> |
+    <a href="{% url 'login' %}">ورود</a>
+    <!-- بقیه لینک‌ها -->
+  </nav>
+
+  <!-- محتوای صفحه‌ی جاری -->
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+
+  <!-- اسکریپت‌های مشترک (مثلاً jquery یا reCAPTCHA) -->
+  {% block scripts %}{% endblock %}
+</body>
+</html>
